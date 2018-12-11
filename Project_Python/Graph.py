@@ -1,4 +1,5 @@
 import Edge
+import copy
 
 class Graph:
 
@@ -24,7 +25,10 @@ class Graph:
             for j in range(self.n):
                 if self.matrix[i][j] != 0:
                     suma = suma+1
-        return suma
+        if self.is_directed():
+            return suma
+        elif not self.is_directed():
+            return suma/2
 
     def show_matrix(self):
         for i in range(self.n):
@@ -101,17 +105,31 @@ class Graph:
                 print("Wierzchołek: ", x)
 
     def iteradjacent(self, node):   # iterator po wierzchołkach sąsiednich
+        if self.is_directed():
+            for x in range(self.n):
+                for y in range(self.n):
+                    if x == node and self.matrix[x][y] != 0:
+                        print("Wierzchołek sąsiedni: ", y)
+                    elif y == node and self.matrix[x][y] != 0:
+                        print("Wierzchołek sąsiedni: ", x)
+
+        elif not self.is_directed():
+            for x in range(self.n):
+                for y in range(self.n):
+                    if x == node and self.matrix[x][y] != 0:
+                        print("Wierzchołek sąsiedni: ", y)
+
+    def iteroutedges(self, node):   # iterator po krawędziach wychodzących (dla grafu skierowanego)
         for x in range(self.n):
             for y in range(self.n):
-                if x == node and self.matrix[x][y] != 0:
-                    print("Wierzchołek sąsiedni: ", y)
-                elif y == node and self.matrix[x][y] != 0:
-                    print("Wierzchołek sąsiedni: ", x)
+                if y == node and self.matrix[x][y] !=0:
+                    print("Krawedz wychodzaca z wierzchołka", y," ----> ", x)
 
-
-    def iteroutedges(self, node): pass  # iterator po krawędziach wychodzących (dla grafu skierowanego)
-
-    def iterinedges(self, node): pass   # iterator po krawędziach przychodzących (dla grafu skierowanego)
+    def iterinedges(self, node):    # iterator po krawędziach przychodzących (dla grafu skierowanego)
+        for x in range(self.n):
+            for y in range(self.n):
+                if x == node and self.matrix[x][y] !=0:
+                    print("Krawedz przychodzace do wierzchołka", x, " <----- ", y)
 
     def iteredges(self):            # iterator po krawędziach
         if self.is_directed():
@@ -121,14 +139,31 @@ class Graph:
                         print("Krawędz: (", y, " -> ", x, " )")
         elif not self.is_directed():
             for x in range(self.n):
-                for y in range(self.n):
+                for y in range(x, self.n):
                     if self.matrix[x][y] != 0:
                         print("Krawędz: (", y, " -- ", x, " )")
 
-    def copy(self): pass                # zwraca kopię grafu
+    def copy(self):                 # zwraca kopię grafu
+        return copy.deepcopy(self)
 
-    def transpose(self): pass           # zwraca graf transponowany
+    def transpose(self):            # zwraca graf transponowany( graf z przeciwnymi krawedziami, tylko dla skierowanego)
+        kopia = copy.deepcopy(self)
+        for i in range(kopia.n):
+            for j in range(kopia.n):
+                kopia.matrix[i][j]= self.matrix[j][i]
+        return kopia
 
-    def complement(self): pass          # zwraca dopełnienie grafu
+    def complement(self):   # zwraca dopełnienie grafu, czyli graf z połączeniami wierzchołkow tylko takimi jak tutaj nie ma
+        kopia = copy.deepcopy(self)
+        for i in range(kopia.n):
+            for j in range(kopia.n):
+                if self.matrix[i][j] != 0:
+                    kopia.matrix[i][j] = 0
+                elif self.matrix[i][j] == 0:
+                    kopia.matrix[i][j] = 1
+        return kopia
 
-    def subgraph(self, nodes): pass     # zwraca podgraf indukowany
+    def subgraph(self, node):      # zwraca podgraf indukowany (graf w ktorym usuwamy weirzchołek node)
+        kopia = copy.deepcopy(self)
+        kopia.del_node(node)
+        return kopia
