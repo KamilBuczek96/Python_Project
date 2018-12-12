@@ -167,3 +167,32 @@ class Graph:
         kopia = copy.deepcopy(self)
         kopia.del_node(node)
         return kopia
+
+    def DFS(self,node):
+        #tworzenie listy koncowej, stosu oraz listy odwiedzonych wierzcholkow
+        wynik = []
+        stack = []
+        visited = [0]*self.n
+
+        #dodanie node do stacka
+        stack.append(node)
+
+        while stack:
+            #pobranie ze stosu wierzchołka, dodanie go do listy wynikowej i ustawienie jako odwiedzony
+            actual = stack.pop()
+            if actual not in wynik:
+                wynik.append(actual)
+            else:
+                continue
+            visited[actual] = 1
+
+            #dodanie na stos wrzystkich sasiadow aktualnego
+
+            for x in range(self.n):
+                for y in range(self.n):
+                    if self.matrix[x][y] != 0 and x == actual and visited[y] != 1:
+                        stack.append(y)
+                    elif self.matrix[x][y] != 0 and y == actual and visited[x] != 1:
+                        stack.append(x)
+        return wynik
+

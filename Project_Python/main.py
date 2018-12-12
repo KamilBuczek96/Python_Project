@@ -25,19 +25,8 @@ print("Liczba krawedzi: ", graf.e())
 print("Liczba wierzchołkow: ", graf.v())
 print("Macierz sasiedztwa grafu:")
 graf.show_matrix()
-print("Has node: ",graf.has_node(6))
 
-print("Liczba krawedzi po usuwaniu: ", graf.e())
-print("Liczba wierzchołkow po usuwaniu: ", graf.v())
-print("Wektor wierzhcolkow grafu po usuwaniu:")
-graf.show_vector()
-
-print("Macierz sasiedztwa grafu:")
-
-
-
-graf2=graf.subgraph(3)
-graf2.show_vector()
-graf2.iteredges()
+print("DFS dla startowego weirzchołka 2: ",graf.DFS(2))
+print("DFS dla startowego weirzchołka 5: ",graf.DFS(5))
 
 
