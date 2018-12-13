@@ -1,5 +1,6 @@
 import Edge
 import copy
+import queue
 
 class Graph:
 
@@ -187,12 +188,50 @@ class Graph:
             visited[actual] = 1
 
             #dodanie na stos wrzystkich sasiadow aktualnego
-
-            for x in range(self.n):
-                for y in range(self.n):
-                    if self.matrix[x][y] != 0 and x == actual and visited[y] != 1:
-                        stack.append(y)
-                    elif self.matrix[x][y] != 0 and y == actual and visited[x] != 1:
-                        stack.append(x)
+            #jeżeli graf jest skierowany
+            if self.is_directed():
+                for x in range(self.n):
+                    for y in range(self.n):
+                        if self.matrix[y][x] != 0 and x == actual and visited[y] != 1:
+                            stack.append(y)
+            else: #jeżeli graf jest nieskierowany
+                for x in range(self.n):
+                    for y in range(self.n):
+                        if self.matrix[y][x] != 0 and x == actual and visited[y] != 1:
+                            stack.append(y)
+                        elif self.matrix[y][x] != 0 and y == actual and visited[x] != 1:
+                            stack.append(x)
         return wynik
 
+    def BFS(self,node):
+        #tworzenie listy koncowej, kolejki oraz listy odwiedzonych wierzcholkow
+        wynik = []
+        kolejka = queue.Queue(3*self.n)
+        visited = [0]*self.n
+
+        #dodanie node do kolejki
+        kolejka.put(node)
+
+        while not kolejka.empty():
+            #pobranie z początku kolejki, dodanie go do listy wynikowej i ustawienie jako odwiedzony
+            actual = kolejka.get()
+            if actual not in wynik:
+                wynik.append(actual)
+            else:
+                continue
+            visited[actual] = 1
+
+            #dodanie na koniec kolejki wrzystkich sasiadow aktualnego
+            if self.is_directed():
+                for x in range(self.n):
+                    for y in range(self.n):
+                        if self.matrix[y][x] != 0 and x == actual and visited[y] != 1:
+                            kolejka.put(y)
+            else:
+                for x in range(self.n):
+                    for y in range(self.n):
+                        if self.matrix[y][x] != 0 and x == actual and visited[y] != 1:
+                            kolejka.put(y)
+                        elif self.matrix[y][x] != 0 and y == actual and visited[x] != 1:
+                            kolejka.put(x)
+        return wynik
