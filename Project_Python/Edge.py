@@ -18,7 +18,7 @@ class Edge:
                 repr(self.source), repr(self.target), repr(self.weight))
 
     def __cmp__(self, other):
-        """Porównywanie krawędzi."""
+        """Porównywanie krawędzi. I jeszcze tutaj dziadostawa"""
         if self.weight > other.weight:
             return 1
         if self.weight < other.weight:
