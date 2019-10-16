@@ -17,7 +17,7 @@ class Graph:
         suma=0
         for i in range(self.n):
             if self.vector[i] is not None:
-                suma = suma + 1
+                suma = suma + 100
         return suma
 
     def e(self):                    # zwraca liczbę krawędzi
