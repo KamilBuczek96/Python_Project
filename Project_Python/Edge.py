@@ -4,6 +4,7 @@ class Edge:
     def __init__(self, source, target, weight=1):
         """Konstruktor krawędzi.."""
         self.source = source
+	self.numer = 1
         self.target = target
         self.weight = weight
 
