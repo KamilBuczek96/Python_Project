@@ -1,1 +1,1 @@
-Nie wiem co zrobilem
+usuwam Graph 
