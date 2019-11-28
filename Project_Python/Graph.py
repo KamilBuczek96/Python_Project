@@ -236,3 +236,4 @@ class Graph:
                             kolejka.put(x)
         return wynik
 WIem co zrobic
+Nie wiem co zrobilem
