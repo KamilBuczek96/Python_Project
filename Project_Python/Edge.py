@@ -39,6 +39,6 @@ class Edge:
         return hash((self.source, self.target, self.weight))
 
     def __invert__(self):
-        """Zwraca krawędź o przeciwnym kierunku."""
+        """asdasdasdasdasZwraca krawędź o przeciwnym kierunku."""
         return Edge(self.target, self.source, self.weight)
 
