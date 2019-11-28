@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Edge
 import copy
 import queue
@@ -237,3 +238,6 @@ class Graph:
         return wynik
 WIem co zrobic
 Nie wiem co zrobilem
+=======
+Nie wiem co zrobilem
+>>>>>>> newbranch
