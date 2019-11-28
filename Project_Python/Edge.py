@@ -10,7 +10,7 @@ class Edge:
 
     def __repr__(self):
         """Zwraca reprezentacje napisowa krawędzi.."""
-        if self.weight == 1:
+        if self.weight == 2:
             return "Edge(%s, %s)" % (
                 repr(self.source), repr(self.target))
         else:
