@@ -235,3 +235,4 @@ class Graph:
                         elif self.matrix[y][x] != 0 and y == actual and visited[x] != 1:
                             kolejka.put(x)
         return wynik
+WIem co zrobic
